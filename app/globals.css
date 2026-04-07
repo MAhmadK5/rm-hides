@@ -1,26 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --leather-black: #1a1a1a;
+  --leather-brown: #3d2b1f;
+  --leather-red: #8b0000;
+  --leather-cream: #fdfcf9;
+  --leather-tan: #c4a484;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--leather-cream);
+  color: var(--leather-black);
+  scroll-behavior: smooth;
+}
+
+/* Custom Selection Color */
+::selection {
+  background-color: #8b0000;
+  color: white;
+}
+
+/* If you want to keep your custom classes, use @theme or just standard CSS */
+@layer components {
+  .btn-primary {
+    @apply bg-[#3d2b1f] text-white px-8 py-4 transition-all duration-300 
+           hover:bg-[#5c4033] active:scale-95 disabled:opacity-50;
+  }
 }
