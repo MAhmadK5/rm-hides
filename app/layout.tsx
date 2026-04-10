@@ -3,6 +3,9 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 import Footer from "./components/Footer";
+import CartDrawer from "./components/CartDrawer"; 
+import MobileMenu from './components/MobileMenu'; 
+
 const inter = Inter({ 
   subsets: ["latin"], 
   variable: "--font-inter" 
@@ -25,11 +28,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
-        {/* We can add a Global Announcement Bar here later */}
-       
+      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-[#050505]`}>
+        
+        {/* Global Drawers & Menus (Hidden until toggled) */}
+        <CartDrawer />
+        <MobileMenu /> 
+        
+        {/* Main Page Content */}
         {children}
+        
+        {/* Global Footer */}
         <Footer />
+        
       </body>
     </html>
   );
