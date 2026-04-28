@@ -29,7 +29,10 @@ export default function CheckoutPage() {
     return parseInt(rawNumber, 10) || 0;
   };
 
-  const subtotal = cartItems.reduce((total, item) => total + (parsePrice(item.price) * item.quantity), 0);
+  // Force item.price to be a string before passing it to parsePrice
+const subtotal = cartItems.reduce((total, item) => 
+  total + (parsePrice(String(item.price)) * item.quantity), 0
+);
   const shipping = subtotal > 0 ? 250 : 0; 
   const totalAmount = subtotal + shipping;
 
