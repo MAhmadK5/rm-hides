@@ -5,8 +5,7 @@ import Link from 'next/link';
 
 export default function WarrantyPage() {
   return (
-    <div className="bg-[#050505] min-h-screen selection:bg-[#7a0016] selection:text-white font-sans text-white">
-      
+  <div className="relative min-h-screen bg-transparent selection:bg-[#7a0016] selection:text-white font-sans overflow-hidden">  
       {/* HEADER */}
       <header className="sticky top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-6 bg-[#050505]/90 backdrop-blur-md border-b border-white/5">
         <div className="flex items-center gap-6 md:gap-10">

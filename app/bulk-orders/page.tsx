@@ -59,7 +59,8 @@ export default function BulkOrdersPage() {
   };
 
   return (
-    <div className="bg-[#050505] min-h-screen selection:bg-[#7a0016] selection:text-white font-sans">
+  <div className="relative min-h-screen bg-transparent selection:bg-[#7a0016] selection:text-white font-sans overflow-hidden">
+    {/* The rest of your homepage code... */}
       
       {/* HEADER */}
       <header className="sticky top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-6 bg-[#050505]/90 backdrop-blur-md border-b border-white/5">

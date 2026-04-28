@@ -1,29 +1,61 @@
 @import "tailwindcss";
 
-:root {
-  --leather-black: #1a1a1a;
-  --leather-brown: #3d2b1f;
-  --leather-red: #8b0000;
-  --leather-cream: #fdfcf9;
-  --leather-tan: #c4a484;
+/* 1. Define Tailwind v4 Theme Colors */
+@theme {
+  --color-leather-black: #1a1a1a;
+  --color-leather-brown: #3d2b1f;
+  --color-leather-red: #8b0000;
+  --color-leather-cream: #fdfcf9;
+  --color-leather-tan: #c4a484;
 }
 
-body {
-  background-color: var(--leather-cream);
-  color: var(--leather-black);
-  scroll-behavior: smooth;
+/* 2. Base HTML Elements */
+@layer base {
+  body {
+    background-color: var(--color-leather-cream);
+    color: var(--color-leather-black);
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background-color: var(--color-leather-red);
+    color: white;
+  }
 }
 
-/* Custom Selection Color */
-::selection {
-  background-color: #8b0000;
-  color: white;
-}
-
-/* If you want to keep your custom classes, use @theme or just standard CSS */
+/* 3. Custom Component Classes */
 @layer components {
   .btn-primary {
-    @apply bg-[#3d2b1f] text-white px-8 py-4 transition-all duration-300 
+    /* Notice how we can now use 'bg-leather-brown' directly in @apply! */
+    @apply bg-leather-brown text-white px-8 py-4 transition-all duration-300 
            hover:bg-[#5c4033] active:scale-95 disabled:opacity-50;
+
+
   }
+}
+  @keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+/* =========================================
+   CUSTOM CYBER GRID ANIMATION
+   ========================================= */
+.bg-cyber-grid {
+  background-size: 50px 50px;
+  /* Increased opacity to 0.15 so it pops */
+  background-image: 
+    linear-gradient(to right, rgba(196, 164, 132, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(196, 164, 132, 0.20) 1px, transparent 1px);
+}
+
+.animate-cyber-grid {
+  animation: gridSlide 15s linear infinite;
+}
+
+@keyframes gridSlide {
+  0% { transform: translateY(-50px); }
+  100% { transform: translateY(0); }
 }
