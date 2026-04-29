@@ -23,14 +23,15 @@ export default function CheckoutPage() {
     email: '', phone: '', firstName: '', lastName: '', address: '', city: '', postalCode: '',
   });
 
-  // FIX: Allow price to be string or number, and convert safely
-  const parsePrice = (priceVal: string | number) => {
-    if (!priceVal) return 0;
-    const rawNumber = String(priceVal).replace(/\D/g, ""); 
+  // THE ULTIMATE FIX: Force it to expect a string, and we will force a string into it below.
+  const parsePrice = (priceStr: string) => {
+    if (!priceStr) return 0;
+    const rawNumber = priceStr.replace(/\D/g, ""); 
     return parseInt(rawNumber, 10) || 0;
   };
 
-  const subtotal = cartItems.reduce((total, item) => total + (parsePrice(item.price) * item.quantity), 0);
+  // THE ULTIMATE FIX P2: Wrap item.price in String() so TypeScript shuts up.
+  const subtotal = cartItems.reduce((total, item) => total + (parsePrice(String(item.price)) * item.quantity), 0);
   const shipping = subtotal > 0 ? 250 : 0; 
   const totalAmount = subtotal + shipping;
 
@@ -44,7 +45,6 @@ export default function CheckoutPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // WhatsApp manual trigger
   const sendToWhatsApp = (order: any) => {
     const text = `*New Order Placed: ${order.order_id}* 🚀\n\n*Customer:* ${order.customer_name}\n*Phone:* ${order.phone}\n*Address:* ${order.address}, ${order.city}\n\n*Items:*\n${order.items.map((i:any) => `- ${i.quantity}x ${i.name} (${i.color})`).join('\n')}\n\n*Total:* Rs. ${order.total_amount.toLocaleString('en-PK')}\n*Payment:* Cash on Delivery\n\n_Please confirm my order!_`;
     window.open(`https://wa.me/923184878315?text=${encodeURIComponent(text)}`, '_blank');
@@ -89,7 +89,6 @@ export default function CheckoutPage() {
             </p>
           </div>
 
-          {/* THE RECEIPT TICKET */}
           <div id="receipt-card" className="bg-[#111] border border-white/10 w-full p-8 md:p-12 shadow-2xl relative overflow-hidden print:bg-white print:border-none print:shadow-none print:p-0">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] font-serif text-white/[0.02] pointer-events-none tracking-tighter -rotate-12 print:text-black/[0.03]">R&M</div>
             <div className="relative z-10 border-b border-white/10 pb-8 mb-8 print:border-black/20 text-center">
@@ -112,7 +111,7 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex flex-col"><span className="text-white print:text-black font-serif tracking-wide">{item.name}</span><span className="text-[9px] text-white/40 print:text-black/60 uppercase tracking-widest mt-1">Qty: {item.quantity} | {item.color}</span></div>
                     </div>
-                    <span className="text-white/80 print:text-black font-medium">Rs. {(parsePrice(item.price) * item.quantity).toLocaleString('en-PK')}</span>
+                    <span className="text-white/80 print:text-black font-medium">Rs. {(parsePrice(String(item.price)) * item.quantity).toLocaleString('en-PK')}</span>
                   </div>
                 ))}
               </div>
@@ -125,7 +124,6 @@ export default function CheckoutPage() {
             <div className="mt-8 text-center text-white/30 print:text-black/50 text-[9px] uppercase tracking-widest relative z-10">Payment Method: Cash on Delivery</div>
           </div>
 
-          {/* User Actions - WhatsApp highlighted */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 print:hidden w-full max-w-2xl">
             <button onClick={() => sendToWhatsApp(orderData)} className="md:col-span-1 bg-[#25D366] text-white px-4 py-4 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-[#20bd5a] transition-colors flex items-center justify-center gap-3 shadow-lg shadow-[#25D366]/20 animate-pulse hover:animate-none">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.385 0 0 5.386 0 12.031c0 2.112.551 4.168 1.599 5.986L.001 24l6.152-1.613c1.765.955 3.753 1.458 5.877 1.458 6.646 0 12.031-5.385 12.031-12.031C24.062 5.386 18.678 0 12.031 0zm.001 21.84c-1.789 0-3.539-.481-5.074-1.39l-.364-.216-3.77.989.999-3.676-.237-.377a9.92 9.92 0 0 1-1.526-5.331c0-5.5 4.477-9.975 9.975-9.975 5.5 0 9.976 4.475 9.976 9.975zm5.474-7.481c-.301-.15-1.776-.877-2.053-.977-.275-.101-.476-.15-.676.15-.201.301-.776.977-.951 1.178-.175.201-.35.226-.651.076-1.353-.679-2.394-1.282-3.328-2.585-.24-.336.241-.318.826-1.487.075-.15.038-.276-.038-.426-.075-.15-.676-1.626-.926-2.227-.243-.584-.489-.505-.676-.514-.175-.01-.376-.01-.576-.01-.2 0-.526.076-.801.376-.275.301-1.051 1.026-1.051 2.502 0 1.477 1.076 2.903 1.226 3.103.15.201 2.115 3.228 5.122 4.526 1.488.643 2.181.71 2.977.625.92-.098 2.802-1.144 3.197-2.25.396-1.106.396-2.052.276-2.252-.12-.201-.421-.301-.722-.451z"/></svg>
@@ -217,7 +215,7 @@ export default function CheckoutPage() {
                     <span className="absolute -top-2 -right-2 bg-[#7a0016] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full shadow-lg">{item.quantity}</span>
                   </div>
                   <div className="flex-grow"><h4 className="text-white text-sm tracking-wide mb-1">{item.name}</h4><p className="text-white/40 text-[10px] uppercase tracking-[0.1em]">{item.color}</p></div>
-                  <div className="text-white/80 font-light text-sm whitespace-nowrap">Rs. {(parsePrice(item.price) * item.quantity).toLocaleString('en-PK')}</div>
+                  <div className="text-white/80 font-light text-sm whitespace-nowrap">Rs. {(parsePrice(String(item.price)) * item.quantity).toLocaleString('en-PK')}</div>
                 </div>
               ))}
             </div>
