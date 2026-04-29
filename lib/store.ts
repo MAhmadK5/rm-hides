@@ -23,6 +23,7 @@ interface CartState {
   clearCart: () => void;
   toggleCart: () => void;
   toggleMenu: () => void;
+  closeMenu: () => void; // <-- Added this
 }
 
 export const useCartStore = create<CartState>()(
@@ -35,7 +36,6 @@ export const useCartStore = create<CartState>()(
       addItem: (newItem) => set((state) => {
         const existingItem = state.items.find((item) => item.id === newItem.id);
         if (existingItem) {
-          // If item exists (same product & color), just increase quantity
           return {
             items: state.items.map((item) =>
               item.id === newItem.id
@@ -44,7 +44,6 @@ export const useCartStore = create<CartState>()(
             ),
           };
         }
-        // Otherwise, add the new item
         return { items: [...state.items, newItem] };
       }),
 
@@ -63,10 +62,11 @@ export const useCartStore = create<CartState>()(
       toggleCart: () => set((state) => ({ isCartOpen: !state.isCartOpen })),
       
       toggleMenu: () => set((state) => ({ isMenuOpen: !state.isMenuOpen })),
+
+      closeMenu: () => set({ isMenuOpen: false }), // <-- Added this
     }),
     {
-      name: 'rm-hides-cart', // This is the key used in localStorage
-      // We only want to persist the cart items, not the open/closed state of the menus
+      name: 'rm-hides-cart',
       partialize: (state) => ({ items: state.items }), 
     }
   )
