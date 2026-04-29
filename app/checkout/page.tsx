@@ -23,16 +23,14 @@ export default function CheckoutPage() {
     email: '', phone: '', firstName: '', lastName: '', address: '', city: '', postalCode: '',
   });
 
-  const parsePrice = (priceStr: string) => {
-    if (!priceStr) return 0;
-    const rawNumber = priceStr.replace(/\D/g, ""); 
+  // FIX: Allow price to be string or number, and convert safely
+  const parsePrice = (priceVal: string | number) => {
+    if (!priceVal) return 0;
+    const rawNumber = String(priceVal).replace(/\D/g, ""); 
     return parseInt(rawNumber, 10) || 0;
   };
 
-  // Force item.price to be a string before passing it to parsePrice
-const subtotal = cartItems.reduce((total, item) => 
-  total + (parsePrice(String(item.price)) * item.quantity), 0
-);
+  const subtotal = cartItems.reduce((total, item) => total + (parsePrice(item.price) * item.quantity), 0);
   const shipping = subtotal > 0 ? 250 : 0; 
   const totalAmount = subtotal + shipping;
 
@@ -79,7 +77,7 @@ const subtotal = cartItems.reduce((total, item) =>
 
   if (isSuccess && orderData) {
     return (
-      <div className="bg-[#050505] min-h-screen flex flex-col items-center py-20 px-6 selection:bg-[#7a0016] selection:text-white font-sans relative overflow-hidden print:bg-white print:py-0">
+      <div className="bg-transparent min-h-screen flex flex-col items-center py-20 px-6 selection:bg-[#7a0016] selection:text-white font-sans relative overflow-hidden print:bg-white print:py-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c4a484]/5 rounded-full blur-[100px] pointer-events-none print:hidden"></div>
         
         <div className="relative z-10 flex flex-col items-center w-full max-w-2xl print:max-w-full">
@@ -159,7 +157,7 @@ const subtotal = cartItems.reduce((total, item) =>
   if (cartItems.length === 0) return null; 
 
   return (
-  <div className="relative min-h-screen bg-transparent selection:bg-[#7a0016] selection:text-white font-sans overflow-hidden">
+    <div className="bg-transparent min-h-screen selection:bg-[#7a0016] selection:text-white font-sans pb-32">
       <Header className="!sticky !top-0 bg-[#050505]/95 backdrop-blur-xl border-b border-white/5 z-50 print:hidden" />
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 print:hidden">
         
@@ -171,8 +169,8 @@ const subtotal = cartItems.reduce((total, item) =>
                 <span>Contact Information</span><span className="text-white/30 text-[10px] font-sans tracking-[0.1em] uppercase">Step 1 of 3</span>
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address *" className="w-full bg-[#111] border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
-                <input required type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number *" className="w-full bg-[#111] border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
+                <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address *" className="w-full bg-[#111]/80 backdrop-blur-sm border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
+                <input required type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number *" className="w-full bg-[#111]/80 backdrop-blur-sm border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
               </div>
             </section>
             <section>
@@ -181,13 +179,13 @@ const subtotal = cartItems.reduce((total, item) =>
               </h2>
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input required type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name *" className="w-full bg-[#111] border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
-                  <input required type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name *" className="w-full bg-[#111] border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
+                  <input required type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name *" className="w-full bg-[#111]/80 backdrop-blur-sm border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
+                  <input required type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name *" className="w-full bg-[#111]/80 backdrop-blur-sm border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
                 </div>
-                <input required type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Street Address (e.g. House No, Street, Sector) *" className="w-full bg-[#111] border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
+                <input required type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Street Address (e.g. House No, Street, Sector) *" className="w-full bg-[#111]/80 backdrop-blur-sm border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input required type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City *" className="w-full bg-[#111] border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
-                  <input type="text" name="postalCode" value={formData.postalCode} onChange={handleChange} placeholder="Postal Code (Optional)" className="w-full bg-[#111] border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
+                  <input required type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City *" className="w-full bg-[#111]/80 backdrop-blur-sm border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
+                  <input type="text" name="postalCode" value={formData.postalCode} onChange={handleChange} placeholder="Postal Code (Optional)" className="w-full bg-[#111]/80 backdrop-blur-sm border border-white/10 p-4 text-white font-light text-sm outline-none focus:border-[#c4a484] transition-colors placeholder:text-white/30 rounded-sm" />
                 </div>
               </div>
             </section>
@@ -196,7 +194,7 @@ const subtotal = cartItems.reduce((total, item) =>
                 <span>Payment Method</span><span className="text-white/30 text-[10px] font-sans tracking-[0.1em] uppercase">Step 3 of 3</span>
               </h2>
               <div className="space-y-4">
-                <div className="border border-[#c4a484] bg-[#c4a484]/5 p-5 flex items-center justify-between rounded-sm">
+                <div className="border border-[#c4a484] bg-[#c4a484]/5 backdrop-blur-sm p-5 flex items-center justify-between rounded-sm">
                   <div className="flex items-center gap-4">
                     <div className="w-5 h-5 rounded-full border border-[#c4a484] flex items-center justify-center"><div className="w-2.5 h-2.5 rounded-full bg-[#c4a484]"></div></div>
                     <div><span className="text-white text-sm block mb-1">Cash on Delivery (COD)</span><span className="text-white/40 text-[10px] block">Pay directly to the courier upon arrival.</span></div>
@@ -209,7 +207,7 @@ const subtotal = cartItems.reduce((total, item) =>
 
         {/* ORDER SUMMARY */}
         <div className="lg:col-span-5">
-          <div className="bg-[#111] border border-white/5 p-8 h-fit lg:sticky lg:top-24 shadow-2xl">
+          <div className="bg-[#111]/80 backdrop-blur-xl border border-white/5 p-8 h-fit lg:sticky lg:top-24 shadow-2xl">
             <h2 className="text-xl font-serif text-white tracking-wide mb-6">Order Summary</h2>
             <div className="divide-y divide-white/5 mb-8 max-h-[40vh] overflow-y-auto pr-2 scrollbar-hide">
               {cartItems.map((item) => (
