@@ -54,8 +54,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* SECTION 2: EXTREME SIGNATURE COLLECTION (Mobile Swipe Optimized) */}
-        <section className="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+        {/* SECTION 2: EXTREME SIGNATURE COLLECTION */}
+        <section className="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto w-full relative z-20">
           <div className="flex justify-between items-end mb-10 md:mb-16">
             <div>
               <span className="text-[#c4a484] uppercase tracking-[0.3em] text-[9px] font-bold mb-2 block flex items-center gap-2">
@@ -70,27 +70,19 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* MOBILE SWIPE CONTAINER */}
           <div className="flex overflow-x-auto pb-10 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-3 gap-4 md:gap-10 snap-x snap-mandatory hide-scrollbar">
             {products.slice(0, 3).map((product) => (
               <Link href={`/product/${product.slug}`} key={product.slug} className="group relative min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center cursor-pointer block">
                 <div className="aspect-[3/4] md:aspect-[4/5] bg-[#050505] relative overflow-hidden border border-white/5 shadow-2xl">
-                  
-                  {/* Image */}
                   <img 
                     src={product.images?.[0] || '/leather.png'} 
                     alt={product.name}
                     className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1500ms] ease-out"
                   />
-                  
-                  {/* Floating Price Pill */}
                   <div className="absolute top-4 right-4 bg-[#050505]/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full z-20 text-white font-medium text-xs tracking-wider shadow-lg">
                     Rs. {product.price}
                   </div>
-
-                  {/* Gradient Fade & Text Info inside image */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity z-10" />
-                  
                   <div className="absolute bottom-0 inset-x-0 p-6 md:p-8 z-20 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
                     <span className="text-[#c4a484] text-[9px] uppercase tracking-[0.3em] font-bold mb-2 block">
                       {product.colors?.length || 0} Colors
@@ -104,7 +96,6 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Mobile View All Button */}
           <div className="mt-4 text-center md:hidden">
             <Link href="/collection" className="inline-block border border-white/10 text-white/70 px-8 py-3 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white/5 transition-colors">
               Explore All ➔
@@ -118,8 +109,8 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* SECTION 3: THE CRAFT (Adjusted padding for mobile) */}
-        <section className="relative w-full bg-[#050505]/40 backdrop-blur-xl border-y border-white/5 py-20 md:py-32 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+        {/* SECTION 3: THE CRAFT */}
+        <section className="relative w-full bg-[#050505]/40 backdrop-blur-xl border-t border-white/5 py-20 md:py-32 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.5)] z-20">
           <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 md:gap-24">
             <div className="w-full md:w-1/2 flex flex-col items-start z-10">
               <span className="text-[#7a0016] uppercase tracking-[0.4em] text-[10px] font-bold mb-4 md:mb-6">Our Heritage</span>
@@ -148,20 +139,28 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* SECTION 4: OUR STORY & TEAM (Mobile Swipe Optimized) */}
-        <section className="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto w-full">
-          <div className="text-center mb-12 md:mb-20 bg-[#050505]/60 backdrop-blur-md p-6 md:p-8 rounded-sm inline-block mx-auto border border-white/5 shadow-2xl max-w-3xl">
+        {/* =========================================
+            VISUAL SEPARATOR: The Breath
+            ========================================= */}
+        <div className="w-full flex justify-center py-10 md:py-20 relative z-10 bg-transparent pointer-events-none">
+          <div className="w-[1px] h-24 md:h-40 bg-gradient-to-b from-[#c4a484]/0 via-[#c4a484]/50 to-[#c4a484]/0 shadow-[0_0_15px_rgba(196,164,132,0.5)]"></div>
+        </div>
+
+        {/* SECTION 4: OUR STORY & TEAM */}
+        <section className="pb-24 md:pb-32 px-6 md:px-12 max-w-[1600px] mx-auto w-full relative z-20 flex flex-col items-center justify-center">
+          
+          <div className="text-center mb-12 md:mb-20 bg-[#050505]/60 backdrop-blur-md p-6 md:p-12 rounded-sm border border-white/5 shadow-2xl w-full max-w-4xl">
             <span className="text-[#7a0016] uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block">The Void & The Vision</span>
             <h2 className="text-3xl md:text-5xl font-serif text-[#fdfcf9] tracking-wide mb-4 md:mb-6">
               Crafting a brand where <span className="italic font-light text-[#c4a484]">none existed.</span>
             </h2>
+            <div className="w-16 h-[1px] bg-white/20 mx-auto mb-6"></div>
             <p className="text-white/60 font-light text-sm md:text-base leading-relaxed">
               Friends Rafy and Maaz saw a void in the Pakistani market: despite the country's rich history of leather craftsmanship, finding a premium, minimalist, home-grown wallet brand was nearly impossible. R&M Hides was conceived to channel Sialkot's mastery into timeless design.
             </p>
           </div>
 
-          {/* MOBILE SWIPE CONTAINER */}
-          <div className="flex overflow-x-auto pb-8 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-3 gap-4 md:gap-10 snap-x snap-mandatory hide-scrollbar">
+          <div className="w-full max-w-6xl flex overflow-x-auto pb-8 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-3 gap-4 md:gap-10 snap-x snap-mandatory hide-scrollbar justify-center">
             {[
               { name: 'Abdul Rafy', title: 'CEO & Co-Founder', quote: '"We are reclaiming Pakistani craftsmanship to define a new standard for local luxury. Each R&M piece is a promise of quality."' },
               { name: 'Maaz Sarfaraz', title: 'Director & Co-Founder', quote: '"Our focus is unwavering operational excellence. We aim to create products embodying the resilient spirit of Pakistani artistry."' },
@@ -178,47 +177,63 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* SECTION 5: THE GUARANTEES (Mobile Swipe Optimized) */}
-        <section className="w-full bg-[#050505]/40 backdrop-blur-lg border-y border-white/5 py-12 md:py-16">
+        {/* SECTION 5: THE GUARANTEES (Now in a distinct, separated dark block) */}
+        <section className="w-full bg-[#020000] border-y border-[#7a0016]/30 py-20 md:py-28 relative z-20 shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+          <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
+            <span className="text-[#c4a484] uppercase tracking-[0.4em] text-[10px] font-bold block mb-4">The R&M Standard</span>
+            <h3 className="text-3xl md:text-5xl font-serif text-white tracking-wide">
+              Uncompromising <span className="italic font-light text-[#7a0016]">Features.</span>
+            </h3>
+          </div>
+
           <div className="max-w-7xl mx-auto flex overflow-x-auto md:grid md:grid-cols-3 gap-4 md:gap-10 divide-x-0 md:divide-x divide-white/10 text-center px-6 snap-x snap-mandatory hide-scrollbar">
-            
             <div className="min-w-[70vw] md:min-w-0 snap-center flex flex-col items-center px-6">
-              <span className="text-[#7a0016] text-2xl mb-4">✦</span>
-              <h4 className="text-white uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold mb-2 md:mb-3 drop-shadow-md">Lifetime Stitching</h4>
+              <div className="w-12 h-12 rounded-full bg-[#7a0016]/10 border border-[#7a0016]/30 flex items-center justify-center mb-6">
+                <span className="text-[#7a0016] text-xl">✦</span>
+              </div>
+              <h4 className="text-white uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold mb-3 drop-shadow-md">Lifetime Stitching</h4>
               <p className="text-white/40 font-light text-xs md:text-sm leading-relaxed">Guaranteed to endure. We repair any stitching issues for life.</p>
             </div>
             
             <div className="min-w-[70vw] md:min-w-0 snap-center flex flex-col items-center px-6 md:border-l border-white/10">
-              <span className="text-[#7a0016] text-2xl mb-4">❖</span>
-              <h4 className="text-white uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold mb-2 md:mb-3 drop-shadow-md">Premium Packaging</h4>
+              <div className="w-12 h-12 rounded-full bg-[#c4a484]/5 border border-[#c4a484]/30 flex items-center justify-center mb-6">
+                <span className="text-[#c4a484] text-xl">❖</span>
+              </div>
+              <h4 className="text-white uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold mb-3 drop-shadow-md">Premium Packaging</h4>
               <p className="text-white/40 font-light text-xs md:text-sm leading-relaxed">Arrives in a luxury matte box, perfect for unforgettable gifting.</p>
             </div>
             
             <div className="min-w-[70vw] md:min-w-0 snap-center flex flex-col items-center px-6 md:border-l border-white/10">
-              <span className="text-[#7a0016] text-2xl mb-4">✧</span>
-              <h4 className="text-white uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold mb-2 md:mb-3 drop-shadow-md">Nationwide Delivery</h4>
+              <div className="w-12 h-12 rounded-full bg-[#7a0016]/10 border border-[#7a0016]/30 flex items-center justify-center mb-6">
+                <span className="text-[#7a0016] text-xl">✧</span>
+              </div>
+              <h4 className="text-white uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold mb-3 drop-shadow-md">Nationwide Delivery</h4>
               <p className="text-white/40 font-light text-xs md:text-sm leading-relaxed">Swift, secure shipping from Islamabad to anywhere in Pakistan.</p>
             </div>
-            
           </div>
         </section>
 
-        {/* SECTION 6: THE LIFESTYLE & FINAL CTA */}
-        <section className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden border-b border-white/5 bg-transparent">
-          <div className="absolute inset-0 z-0 bg-[#050505]">
-            <img src="/Story.jpg" alt="Leather Lifestyle" className="w-full h-full object-cover opacity-30 hover:opacity-50 transition-opacity duration-1000 mix-blend-screen" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-[#050505]/80"></div>
+        {/* SECTION 6: THE LIFESTYLE & FINAL CTA (Clear visual break before image) */}
+        <section className="relative w-full h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden bg-[#050505]">
+          <div className="absolute inset-0 z-0">
+            <img src="/Story.jpg" alt="Leather Lifestyle" className="w-full h-full object-cover opacity-40 hover:opacity-60 transition-opacity duration-[2000ms] mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#020000] via-[#050505]/40 to-[#020000] opacity-90"></div>
           </div>
-          <div className="relative z-10 text-center px-6 max-w-3xl flex flex-col items-center bg-[#050505]/30 backdrop-blur-md p-8 md:p-10 border border-white/5 shadow-2xl rounded-sm">
-            <span className="text-[#7a0016] uppercase tracking-[0.4em] text-[9px] md:text-[10px] font-bold mb-4 md:mb-6 block drop-shadow-lg">The Patina</span>
+          
+          <div className="relative z-10 text-center px-6 max-w-3xl flex flex-col items-center bg-[#050505]/50 backdrop-blur-xl p-8 md:p-16 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-sm">
+            <span className="text-[#c4a484] uppercase tracking-[0.4em] text-[9px] md:text-[10px] font-bold mb-4 md:mb-6 block drop-shadow-lg">
+              The Evolution
+            </span>
             <h2 className="text-3xl md:text-6xl font-serif text-[#fdfcf9] tracking-wide mb-4 md:mb-6 leading-tight drop-shadow-2xl">
-              A story told in <br className="md:hidden"/> <span className="italic font-light text-[#c4a484]">every crease.</span>
+              A story told in <br className="md:hidden"/> <span className="italic font-light text-[#7a0016]">every crease.</span>
             </h2>
+            <div className="w-12 h-[1px] bg-white/20 mx-auto mb-6 md:mb-8"></div>
             <p className="text-white/70 font-light text-xs md:text-base mb-8 md:mb-10 leading-relaxed max-w-lg drop-shadow-md">
-              Our full-grain leather doesn't wear out—it wears in. Every mark, scratch, and polished edge reflects your personal journey.
+              Our full-grain leather doesn't wear out—it wears in. Every mark, scratch, and polished edge reflects your personal journey. It is an artifact of your life.
             </p>
-            <Link href="/collection" className="bg-[#7a0016] text-white px-8 md:px-10 py-4 md:py-5 text-[10px] md:text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-[#9a1026] transition-colors duration-300 shadow-lg shadow-[#7a0016]/20">
-              Explore Full Collection
+            <Link href="/collection" className="group relative overflow-hidden bg-[#7a0016] text-white px-8 md:px-12 py-4 md:py-5 text-[10px] md:text-[11px] uppercase tracking-[0.3em] font-bold border border-[#9a1026] shadow-2xl">
+              <span className="relative z-10 group-hover:text-black transition-colors duration-300">Explore Full Collection</span>
+              <div className="absolute inset-0 bg-[#c4a484] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-0"></div>
             </Link>
           </div>
         </section>
@@ -231,7 +246,6 @@ export default function HomePage() {
         </svg>
       </a>
 
-      {/* Hide Scrollbar globally for this page */}
       <style dangerouslySetInnerHTML={{__html: `
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
