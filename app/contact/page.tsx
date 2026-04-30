@@ -46,16 +46,24 @@ export default function ContactPage() {
               <h3 className="text-[11px] uppercase tracking-[0.3em] text-[#c4a484] font-bold mb-4">The Studio</h3>
               <p className="text-white/70 font-light leading-relaxed">
                 R&M Hides<br />
+              <i> <b>Address: </b> </i> <br />
+                The Hill Road, TPMCS<br />
+                Sector E-11/2<br />
                 Islamabad Capital Territory<br />
-                Pakistan
+                Pakistan <br />
+                ----------------------------
               </p>
             </div>
             <div>
               <h3 className="text-[11px] uppercase tracking-[0.3em] text-[#c4a484] font-bold mb-4">Direct Lines</h3>
               <p className="text-white/70 font-light leading-relaxed">
-                Email: concierge@rmhides.com<br />
-                Phone: +92 300 0000000<br />
-                Hours: Mon-Fri, 10am - 6pm (PKT)
+               <b> Email: </b> shop.rmhides@gmail.com<br />
+                <b> Phones:</b> <br />
+               <b>Abdul Rafy</b>  (CEO): +92 318 4878315<br />
+               <b>Maaz Sarfaraz</b>  (Director): +923304321281 <br />
+                Hours: Mon-Fri, 10am - 6pm (PKT) <br />
+                <br />
+                --------------------------------------------
               </p>
             </div>
           </div>

@@ -2,23 +2,23 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store';
 
 export default function Header({ className = "" }: { className?: string }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  
   const toggleCart = useCartStore((state) => state.toggleCart);
   const cartItems = useCartStore((state) => state.items);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
 
-  // Automatically close mobile menu when a user clicks a link and navigates
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  // Prevent background scrolling when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -32,31 +32,61 @@ export default function Header({ className = "" }: { className?: string }) {
     <>
       <header className={`absolute top-0 inset-x-0 z-40 flex items-center justify-between px-6 md:px-12 py-6 transition-all ${className}`}>
         
-        {/* MOBILE MENU TOGGLE */}
-        <button onClick={() => setIsMobileMenuOpen(true)} className="md:hidden text-white hover:text-[#c4a484] transition-colors p-1" aria-label="Open Menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
+        {/* LEFT SIDE: Mobile Menu, Back Arrow & Logo */}
+        <div className="flex items-center gap-4 z-50">
+          
+          {/* Mobile Menu Toggle */}
+          <button onClick={() => setIsMobileMenuOpen(true)} className="md:hidden text-white hover:text-[#c4a484] transition-colors p-1" aria-label="Open Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
 
-        {/* BRAND LOGO */}
-        <Link href="/" className="bg-[#7a0016] text-white font-serif tracking-[0.2em] text-sm md:text-lg px-4 py-1.5 shadow-lg border border-[#9a1026]/50 hover:bg-[#5a0010] transition-colors duration-300 absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
-          R&M HIDES
-        </Link>
+          {/* DYNAMIC BACK BUTTON (Arrow Only, Hidden on Home) */}
+          {pathname !== '/' && (
+            <button 
+              onClick={() => router.back()} 
+              className="text-white/50 hover:text-white transition-colors group p-1 hidden sm:block md:block"
+              aria-label="Go Back"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:-translate-x-1 transition-transform">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+              </svg>
+            </button>
+          )}
+
+          {/* Mobile Back Button (Overrides hiding on small screens if not on home) */}
+           {pathname !== '/' && (
+            <button 
+              onClick={() => router.back()} 
+              className="text-white/50 hover:text-white transition-colors group p-1 sm:hidden"
+              aria-label="Go Back"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:-translate-x-1 transition-transform">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+              </svg>
+            </button>
+          )}
+
+          {/* BRAND LOGO (Centered on mobile, static next to buttons on desktop) */}
+          <Link href="/" className="bg-[#7a0016] text-white font-serif tracking-[0.2em] text-sm md:text-lg px-4 py-1.5 shadow-lg border border-[#9a1026]/50 hover:bg-[#5a0010] transition-colors duration-300 absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+            R&M HIDES
+          </Link>
+        </div>
         
-        {/* DESKTOP NAVIGATION */}
-        <nav className="hidden md:flex gap-6 lg:gap-10 text-white/80 text-[10px] uppercase tracking-[0.3em] font-semibold items-center absolute left-1/2 -translate-x-1/2">
+        {/* DESKTOP NAVIGATION (Absolutely centered on desktop) */}
+        <nav className="hidden md:flex gap-6 lg:gap-10 text-white/80 text-[10px] uppercase tracking-[0.3em] font-semibold items-center absolute left-1/2 -translate-x-1/2 z-40">
           <Link href="/collection" className="hover:text-[#c4a484] transition-colors duration-300">Collection</Link>
           <Link href="/bulk-orders" className="hover:text-[#c4a484] transition-colors duration-300">Bulk Orders</Link>
-          <Link href="/track-order" className="hover:text-[#c4a484] transition-colors duration-300 text-[#c4a484]">Track Order</Link>
+          <Link href="/track-order" className="hover:text-[#c4a484] transition-colors duration-300">Track Order</Link>
           <Link href="/contact" className="hover:text-[#c4a484] transition-colors duration-300">Contact Us</Link>
           <Link href="/admin" className="text-white/30 hover:text-[#c4a484] transition-colors duration-300 ml-2 border-l border-white/10 pl-6">Admin</Link>
         </nav>
         
-        {/* CART ICON */}
-        <button onClick={toggleCart} className="flex items-center gap-3 hover:text-[#c4a484] transition-colors duration-300 group">
+        {/* RIGHT SIDE: Cart */}
+        <button onClick={toggleCart} className="flex items-center gap-3 hover:text-[#c4a484] transition-colors duration-300 group z-50">
           <span className="hidden md:inline text-white/80 text-[10px] uppercase tracking-[0.3em] font-semibold group-hover:text-[#c4a484]">Cart</span>
           <div className="relative">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white group-hover:text-[#c4a484] transition-colors">
@@ -86,7 +116,7 @@ export default function Header({ className = "" }: { className?: string }) {
           <Link href="/" className="hover:text-[#c4a484] hover:scale-110 transition-all duration-300">Home</Link>
           <Link href="/collection" className="hover:text-[#c4a484] hover:scale-110 transition-all duration-300">Collection</Link>
           <Link href="/bulk-orders" className="hover:text-[#c4a484] hover:scale-110 transition-all duration-300">Bulk Orders</Link>
-          <Link href="/track-order" className="text-[#c4a484] hover:scale-110 transition-all duration-300">Track Order</Link>
+          <Link href="/track-order" className="hover:text-[#c4a484] hover:scale-110 transition-all duration-300">Track Order</Link>
           <Link href="/contact" className="hover:text-[#c4a484] hover:scale-110 transition-all duration-300">Contact</Link>
           <Link href="/admin" className="text-white/20 hover:text-[#c4a484] hover:scale-110 transition-all duration-300 mt-4 text-sm">Admin</Link>
         </nav>

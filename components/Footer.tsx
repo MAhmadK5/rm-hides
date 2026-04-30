@@ -5,6 +5,12 @@ export default function Footer() {
   return (
     <footer className="relative w-full bg-[#020000] pt-32 pb-10 border-t-2 border-[#7a0016] overflow-hidden">
       
+      {/* =========================================
+          AMBIENT LIGHT ENGINES
+          ========================================= */}
+      <div className="absolute -top-[50%] -left-[10%] w-[60vw] h-[60vw] bg-[#7a0016]/20 rounded-full blur-[150px] mix-blend-screen pointer-events-none z-0"></div>
+      <div className="absolute top-[20%] -right-[10%] w-[50vw] h-[50vw] bg-[#c4a484]/10 rounded-full blur-[150px] mix-blend-screen pointer-events-none z-0"></div>
+
       {/* Massive Red Background Watermark */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] font-serif font-black text-[#7a0016]/5 whitespace-nowrap pointer-events-none tracking-widest z-0">
         R&M HIDES
@@ -37,17 +43,18 @@ export default function Footer() {
           
           <div className="flex flex-col gap-4">
             <span className="text-white font-serif uppercase tracking-[0.2em] text-[10px] mb-2">Shop</span>
-            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">All Products</Link>
-            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">Bifolds</Link>
-            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">Cardholders</Link>
-            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">Travel Accs</Link>
+            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">All Collection</Link>
+            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">Bi-Fold</Link>
+            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">Long Wallet</Link>
+            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">Minimal</Link>
+            <Link href="/collection" className="hover:text-[#7a0016] transition-colors">Leather Belts</Link>
           </div>
           
           <div className="flex flex-col gap-4">
-            <span className="text-white font-serif uppercase tracking-[0.2em] text-[10px] mb-2">Brand</span>
-            <Link href="#" className="hover:text-[#7a0016] transition-colors">Our Story</Link>
+            <span className="text-white font-serif uppercase tracking-[0.2em] text-[10px] mb-2">Explore</span>
+            <Link href="/bulk-orders" className="hover:text-[#7a0016] transition-colors">Bulk Orders</Link>
+            <Link href="/track-order" className="hover:text-[#7a0016] transition-colors">Track Order</Link>
             <Link href="#" className="hover:text-[#7a0016] transition-colors">The Craft</Link>
-            <Link href="#" className="hover:text-[#7a0016] transition-colors">Journal</Link>
           </div>
           
           <div className="flex flex-col gap-4">
@@ -57,7 +64,7 @@ export default function Footer() {
             <Link href="/warranty" className="hover:text-[#7a0016] transition-colors">Lifetime Warranty</Link>
           </div>
 
-          {/* NEW: Dedicated Contact Section */}
+          {/* Dedicated Contact Section */}
           <div className="flex flex-col gap-3">
             <span className="text-white font-serif uppercase tracking-[0.2em] text-[10px] mb-2">Contact</span>
             <a href="mailto:shop.rmhides@gmail.com" className="hover:text-[#7a0016] transition-colors text-xs">
@@ -104,7 +111,7 @@ export default function Footer() {
 
         {/* Bottom: Copyright & Developer Tag */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[#7a0016]/30 text-[10px] uppercase tracking-[0.2em] text-white/40 gap-6">
-          <p className="order-2 md:order-1">© 2026 R&M HIDES. All Rights Reserved.</p>
+          <p className="order-2 md:order-1">© {new Date().getFullYear()} R&M HIDES. All Rights Reserved.</p>
           <div className="flex items-center gap-4 order-1 md:order-2">
             <span className="font-semibold text-white/60">Developed by Ahmad Khalid</span>
             <div className="flex gap-3">
@@ -116,12 +123,14 @@ export default function Footer() {
               </a>
             </div>
           </div>
+          
+          {/* NEW LEGAL LINKS HERE */}
           <div className="flex gap-6 order-3">
-            <a href="#" className="hover:text-[#7a0016] transition-colors">Terms</a>
-            <a href="#" className="hover:text-[#7a0016] transition-colors">Privacy</a>
+            <Link href="/terms" className="hover:text-[#7a0016] transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-[#7a0016] transition-colors">Privacy</Link>
           </div>
-        </div>
 
+        </div>
       </div>
     </footer>
   );
